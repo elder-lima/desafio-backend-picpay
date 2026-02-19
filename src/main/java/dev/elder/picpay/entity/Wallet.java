@@ -51,8 +51,8 @@ public class Wallet {
         return this.walletType == WalletType.USER;
     }
 
-    public boolean isBalancerEqualOrGreatherThan(@NotNull @DecimalMin("0.01") BigDecimal value) {
-        return this.balance.doubleValue() > value.doubleValue();
+    public boolean hasSufficientBalance(BigDecimal value) {
+        return this.balance.compareTo(value) > 0;
     }
 
     public void debit(BigDecimal value) {

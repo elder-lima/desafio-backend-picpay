@@ -9,7 +9,6 @@ import dev.elder.picpay.service.exceptions.InsufficientBalanceException;
 import dev.elder.picpay.service.exceptions.ResourceNotFoundException;
 import dev.elder.picpay.service.exceptions.TransferNotAllowedForWalletException;
 import dev.elder.picpay.service.exceptions.TransferNotAuthorizedException;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,7 +60,7 @@ public class TransferService {
             throw new TransferNotAllowedForWalletException("This wallet type is not allowed to transfer.");
         }
 
-        if (!sender.isBalancerEqualOrGreatherThan(transferDto.value())) {
+        if (!sender.hasSufficientBalance(transferDto.value())) {
             throw new InsufficientBalanceException("Insufficient balance. You cannot transfer a value bigger than your current balance.");
         }
 
